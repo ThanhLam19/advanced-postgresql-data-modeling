@@ -29,6 +29,24 @@ The database is architected to handle distinct data engineering challenges, orga
 
 4.  **Storage Optimization (Bottom-Left):** * Utilized **Bitmasking** in the `users_cumulated` table to compress 30 days of user activity into a single integer, drastically reducing storage costs compared to raw event logs.
 
+
+## 🚀 Key Features Showcase
+
+Evidence of the system's capabilities in handling complex data scenarios:
+
+### 1. SCD Type 2 Implementation (History Tracking)
+*Problem:* How to track changes in a player's status without losing historical context?
+*Solution:* The query below demonstrates the **`players_scd`** table. Notice how 'Michael Jordan' has multiple records. When his status changed, the `end_season` of the previous record was automatically closed, and a new active record was created.
+
+![SCD Type 2 Query Result](scd_result.png)
+*(Note: `is_active` status changes trigger a new row version with updated validity dates)*
+
+### 2. Bitmasking Optimization (Storage Efficiency)
+*Problem:* Storing 30 days of activity for millions of users usually requires heavy storage.
+*Solution:* The `activity_bitmask` column compresses user retention data. The binary string `...101` represents specific days the user was active, allowing for extremely fast `Bitwise AND` operations to calculate MAU/DAU.
+
+![Bitmasking Query Result](bitmask_result.png)
+
 ## 📁 Repository Structure
 
 The project is structured to separate data definition (Schema) from transformation logic (ETL/ELT):
