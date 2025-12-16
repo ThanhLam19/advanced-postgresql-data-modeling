@@ -75,3 +75,7 @@ advanced-postgresql-data-modeling/
   * **Database:** PostgreSQL
   * **Key Concepts:** Dimensional Modeling, Slowly Changing Dimensions (SCD), Bitwise Operations, Window Functions, Data Integrity.
   * **Tools:** DBeaver, Git.
+
+## 📚 Acknowledgements & Credits
+* This project is inspired by the **Data Engineering with Postgres** curriculum by **[Tên kênh YouTube/Tác giả]**.
+* While following the core architectural concepts, I have independently implemented the SQL logic, Docker environment, and documentation to deepen my understanding of Advanced Data Modeling.
