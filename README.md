@@ -77,5 +77,5 @@ advanced-postgresql-data-modeling/
   * **Tools:** DBeaver, Git.
 
 ## 📚 Acknowledgements & Credits
-* This project is inspired by the **Data Engineering with Postgres** curriculum by **[Tên kênh YouTube/Tác giả]**.
+* This project is inspired by the **Data Engineering with Postgres** curriculum by **Data with Zach**.
 * While following the core architectural concepts, I have independently implemented the SQL logic, Docker environment, and documentation to deepen my understanding of Advanced Data Modeling.
