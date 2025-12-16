@@ -13,6 +13,22 @@ The repository showcases solutions for handling data that goes beyond basic rela
 | **Graph Modeling in RDBMS** | Analyzing complex relationships (e.g., player collaborations, game relationships) typically requiring a Graph Database. | Converted relational NBA data into **Vertices** and **Edges** using **PostgreSQL's JSON and Custom ENUM Types** to store properties and define relationship types. |
 | **Complex Array Types** | Minimizing expensive joins between Dimension and Fact tables. | Used **`ARRAY` of `COMPOSITE TYPE`** (custom row types) to embed multi-year statistics (e.g., `season_stats`) directly within the `players` table, optimizing for read-heavy OLAP workloads. |
 
+## 🏗 Data Architecture & Modeling
+
+The database is architected to handle distinct data engineering challenges, organized into four logical domains:
+
+![Database Schema](architecture_diagram.png)
+
+1.  **Analytical Layer (Center):** * Designed a **Star Schema** centered around `fct_game_details` to enable high-performance aggregation of NBA game statistics.
+    * Connected with Dimension tables like `teams`, `games`, and `arena`.
+
+2.  **Historical Tracking / SCD Type 2 (Top-Left):** * Implemented strict **Slowly Changing Dimensions Type 2** for `players_scd` and `actor_scd` tables.
+    * Captures historical changes (e.g., `is_active`, `scoring_class`) with `start_season` and `end_season` validity columns.
+
+3.  **Graph Modeling (Top-Right):** * Modeled complex relationships using a graph schema (`vertices` & `edges`) to analyze networks like "Player A plays against Player B".
+
+4.  **Storage Optimization (Bottom-Left):** * Utilized **Bitmasking** in the `users_cumulated` table to compress 30 days of user activity into a single integer, drastically reducing storage costs compared to raw event logs.
+
 ## 📁 Repository Structure
 
 The project is structured to separate data definition (Schema) from transformation logic (ETL/ELT):
