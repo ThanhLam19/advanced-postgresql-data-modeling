@@ -1,0 +1,18 @@
+# File tạm thời của hệ điều hành
+.DS_Store
+
+# File tạm thời của các Editor phổ biến
+*.bak
+*.swp
+*.tmp
+
+# File Log
+*.log
+
+# Các thư mục/file của Python
+__pycache__/
+*.pyc
+
+# Các file cấu hình DBeaver hoặc SQL Tool
+.dbeaver/
+.dbeaver-data-sources.xml
