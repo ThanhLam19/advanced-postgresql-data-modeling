@@ -41,10 +41,16 @@ Evidence of the system's capabilities in handling complex data scenarios:
 ![SCD Type 2 Query Result](scd_result.png)
 *(Note: `is_active` status changes trigger a new row version with updated validity dates)*
 
-### 2. Bitmasking Optimization (Storage Efficiency)
-*Problem:* Storing 30 days of activity for millions of users usually requires heavy storage.
-*Solution:* The `activity_bitmask` column compresses user retention data. The binary string `...101` represents specific days the user was active, allowing for extremely fast `Bitwise AND` operations to calculate MAU/DAU.
+### Bitmasking Optimization (Storage & Compute Efficiency)
+Problem: Storing daily active status for millions of users individually leads to bloated tables and slow aggregation queries (e.g., COUNT DISTINCT over huge ranges).
 
+Solution:
+
+Compression: The binary column (shown as sum) compresses 30 days of activity into a single integer. Each bit represents one day (1 = Active, 0 = Inactive).
+
+Instant Analytics: The columns dim_monthly_active, dim_weekly_active, and dim_daily_active are derived instantly using fast Bitwise AND operations on the binary string, without needing complex joins or window functions.
+
+(The binary string allows immediate classification of MAU/WAU/DAU status)
 ![Bitmasking Query Result](bitmask_result.png)
 
 ## 📁 Repository Structure
